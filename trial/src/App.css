@@ -1,0 +1,191 @@
+.App {
+  text-align: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2.5em;
+}
+
+h2 {
+  color: #555;
+  margin: 20px 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+}
+
+.submit-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+.submit-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.toggle-btn {
+  background-color: #2196F3;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 20px 0;
+  transition: background-color 0.3s;
+}
+
+.toggle-btn:hover {
+  background-color: #1976D2;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+.message {
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 2px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 2px solid #f5c6cb;
+}
+
+.submissions-section {
+  border-top: 2px solid #eee;
+  padding-top: 20px;
+  margin-top: 30px;
+}
+
+.submissions-list {
+  text-align: left;
+}
+
+.submission-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px 0;
+  position: relative;
+}
+
+.submission-card h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.3em;
+}
+
+.submission-card p {
+  margin: 8px 0;
+  color: #666;
+}
+
+.submission-card p strong {
+  color: #333;
+}
+
+.submission-card .delete-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    margin: 10px;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 2em;
+  }
+  
+  .submission-card .delete-btn {
+    position: static;
+    margin-top: 10px;
+  }
+}
