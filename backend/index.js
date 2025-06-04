@@ -74,6 +74,16 @@ app.post('/api/submit-form', async (req, res) => {
   }
 });
 
+app.post('api/update-form', async (req, res) => {
+  try{
+    const updatedResult = await FormSubmission.findByIdAndUpdate({_id : req.params.id}, req.body, {new : true});
+    console.log("Document Updated");
+    return updatedResult;
+  }catch (error) {
+    console.log(error);
+  }
+})
+
 // API endpoint to get all submissions (optional)
 app.get('/api/submissions', async (req, res) => {
   try {
