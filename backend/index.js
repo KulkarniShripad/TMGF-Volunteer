@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
-// Import the model
-const FormSubmission = require('./models/FormSubmission');
+const eventRoutes = require('./routes/events');
+const volunteerRoutes = require('./routes/volunteers')
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -39,100 +39,6 @@ mongoose.connection.on('disconnected', () => {
   console.log('Mongoose disconnected');
 });
 
-// API endpoint to handle form submission
-app.post('/api/submit-form', async (req, res) => {
-  try {
-    const { name, mobile_no, email} = req.body;
-    
-    // Create new form submission using the model
-    const newSubmission = new FormSubmission({
-      name,
-      mobile_no,
-      email
-    });
-    
-    // Save to database
-    const savedSubmission = await newSubmission.save();
-    
-    res.status(201).json({
-      message: 'Form submitted successfully',
-      data: savedSubmission
-    });
-  } catch (error) {
-    console.error('Error saving form submission:', error);
-    
-    // Handle validation errors
-    if (error.name === 'ValidationError') {
-      const errors = Object.values(error.errors).map(err => err.message);
-      return res.status(400).json({
-        error: 'Validation failed',
-        details: errors
-      });
-    }
-    
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-app.post('api/update-form', async (req, res) => {
-  try{
-    const updatedResult = await FormSubmission.findByIdAndUpdate({_id : req.params.id}, req.body, {new : true});
-    console.log("Document Updated");
-    return updatedResult;
-  }catch (error) {
-    console.log(error);
-  }
-})
-
-// API endpoint to get all submissions (optional)
-app.get('/api/submissions', async (req, res) => {
-  try {
-    const submissions = await FormSubmission.find()
-      .sort({ createdAt: -1 }) // Sort by newest first
-      .limit(50); // Limit to 50 results
-    
-    res.json(submissions);
-  } catch (error) {
-    console.error('Error fetching submissions:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// API endpoint to get a single submission by ID
-app.get('/api/submissions/:id', async (req, res) => {
-  try {
-    const submission = await FormSubmission.findById(req.params.id);
-    
-    if (!submission) {
-      return res.status(404).json({ error: 'Submission not found' });
-    }
-    
-    res.json(submission);
-  } catch (error) {
-    console.error('Error fetching submission:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// API endpoint to delete a submission by ID (optional)
-app.delete('/api/submissions/:id', async (req, res) => {
-  try {
-    const deletedSubmission = await FormSubmission.findByIdAndDelete(req.params.id);
-    
-    if (!deletedSubmission) {
-      return res.status(404).json({ error: 'Submission not found' });
-    }
-    
-    res.json({
-      message: 'Submission deleted successfully',
-      data: deletedSubmission
-    });
-  } catch (error) {
-    console.error('Error deleting submission:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({
@@ -141,6 +47,9 @@ app.get('/api/health', (req, res) => {
     uptime: process.uptime()
   });
 });
+
+app.use('/events', eventRoutes);
+app.use('/volunteers', volunteerRoutes);
 
 // Handle graceful shutdown
 process.on('SIGINT', async () => {

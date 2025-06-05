@@ -186,7 +186,7 @@ const App = () => {
   const fetchVolunteers = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get('http://localhost:5000/api/submissions');
+      const response = await axios.get('http://localhost:5000/volunteers');
       setVolunteers(response.data);
     } catch (error) {
       console.error('Error fetching volunteers:', error);
@@ -214,7 +214,7 @@ const App = () => {
     setSubmitMessage('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/submit-form', {
+      const response = await axios.post('http://localhost:5000/volunteers', {
         name: volunteerData.name,
         email: volunteerData.email,
         mobile_no: volunteerData.phone
@@ -244,7 +244,7 @@ const App = () => {
   const deleteVolunteer = async (id) => {
     if (window.confirm('Are you sure you want to remove this volunteer?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/submissions/${id}`);
+        await axios.delete(`http://localhost:5000/volunteers/${id}`);
         setVolunteers(volunteers.filter(vol => vol._id !== id));
         setSubmitMessage('Volunteer removed successfully!');
         

@@ -7,7 +7,7 @@ const formSubmissionSchema = new mongoose.Schema({
     trim: true,
     maxlength: [100, 'Name cannot exceed 100 characters']
   },
-  mobile_no : {
+  mobile_no : { 
     type: String,
     required: [true, 'Number is required'],
     trim: true,
